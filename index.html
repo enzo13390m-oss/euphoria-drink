@@ -13,23 +13,24 @@ VOICE: chaleureux, l'apéritif entre amis, honnête sur la science
 IDEA: une étiquette de bouteille toulousaine, bleu pastel (guède) et brique au crépuscule
 PICTURE: trois bouteilles sur un rebord de brique, devant le soleil couchant et les toits de Toulouse
 COLOUR and TYPE: bleu pastel #1f3f8a, fleur de guède #f4c430, brique rose #e5a090 ; Gloock + Schibsted Grotesk
-LAYOUT: bandeaux pleine largeur, titre au-dessus d'une scène panoramique, boutique avec panier latéral
+LAYOUT: une page par onglet, bandeau de titre bleu, boutique avec panier latéral
 */
 :root{color-scheme:light dark;--bg:light-dark(#ffffff,#0c1530);--alt:light-dark(#eef2fb,#111c3e);--ink:light-dark(#13203f,#eef1fb);--muted:light-dark(#4b587a,#a9b4d6);--line:light-dark(#d3dbee,#273562);--hi:light-dark(#1f3f8a,#f4c430);--woad:#1f3f8a;--woad-d:#122a63;--flower:#f4c430;--brick:#e5a090;--paper:#fffdf8}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
-html{scroll-behavior:smooth;scroll-padding-top:120px}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Schibsted Grotesk",system-ui,sans-serif;overflow-x:clip}
 h1,h2,h3{font-family:Gloock,Georgia,serif;font-weight:400;line-height:1.05;text-wrap:balance;margin:0 0 .45em}
-h1{font-size:clamp(36px,5vw,56px);max-width:16ch}
+h1{font-size:clamp(36px,5vw,56px);max-width:18ch}
 h2{font-size:clamp(30px,3.6vw,44px)}
 h3{font-size:24px}
+h1:focus{outline:none}
 p{margin:0 0 1em;max-width:66ch}
 small,.hint{font-size:14px;color:var(--muted)}
 a{color:inherit}
-.band{padding:clamp(44px,6vw,88px) max(5vw,16px)}
+.band{padding:clamp(44px,6vw,80px) max(5vw,16px)}
 .in{max-width:1240px;margin:0 auto}
 .lead{color:var(--muted)}
+.alt{background:var(--alt)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 [hidden]{display:none!important}
 :focus-visible{outline:3px solid var(--flower);outline-offset:2px}
@@ -38,6 +39,7 @@ a{color:inherit}
 .btn-b{background:var(--woad);color:#fff}
 .btn-o{background:transparent;color:inherit;border-color:currentColor}
 .wide{width:100%}
+.tl{font-weight:700;color:var(--hi);text-underline-offset:4px}
 /* barre */
 .top{position:sticky;top:0;z-index:20;padding:0 max(5vw,16px);background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .bar{display:flex;align-items:center;gap:16px;min-height:64px;flex-wrap:wrap}
@@ -45,21 +47,34 @@ a{color:inherit}
 .links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1}
 .links a{flex:none;padding:10px 12px;border-radius:8px;color:var(--muted);text-decoration:none;font-weight:500}
 .links a:hover{color:var(--ink);background:var(--alt)}
+.links a[aria-current=page]{color:var(--ink);background:var(--alt);box-shadow:inset 0 -3px 0 var(--flower)}
 #cartBtn{margin-left:auto}
 #cnt{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--flower);color:#13203f;font-size:14px}
 @media(max-width:760px){.links{order:3;flex-basis:100%;margin:0 -12px 6px}}
-/* héros */
-.hero{background:var(--woad);color:#fff;padding:clamp(36px,5vw,64px) max(5vw,16px) 0}
-.hero p{color:#dfe6fb}
+/* héros et bandeaux */
+.hero,.phead{background:var(--woad);color:#fff;padding:clamp(36px,5vw,64px) max(5vw,16px) 0}
+.phead{padding-bottom:clamp(32px,4vw,52px)}
+.hero p,.phead p{color:#dfe6fb}
+.phead p{margin:0}
 .htxt{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px 56px;align-items:end}
 .htxt h1{margin:0}.htxt p{margin-bottom:20px}
 @media(max-width:900px){.htxt{grid-template-columns:minmax(0,1fr)}}
 .acts{display:flex;flex-wrap:wrap;gap:12px}
-.scene{position:relative;height:clamp(300px,40vw,470px);margin:32px calc(-1*max(5vw,16px)) 0}
+.scene{position:relative;height:clamp(300px,40vw,480px);margin:32px calc(-1*max(5vw,16px)) 0}
 .scene>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
 .b{animation:rise 4.2s linear infinite;opacity:0}
-@keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:.75}100%{transform:translateY(-160px);opacity:0}}
+@keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:.8}100%{transform:translateY(-190px);opacity:0}}
 .proto{max-width:none;margin:0;background:var(--flower);color:#13203f;text-align:center;padding:12px 16px;font-size:14px;font-weight:500}
+/* grilles */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px;margin-top:32px}
+.pic{background:radial-gradient(120% 80% at 50% 100%,color-mix(in srgb,var(--c) 34%,var(--bg)),color-mix(in srgb,var(--c) 14%,var(--bg)));display:flex;justify-content:center;align-items:flex-end;gap:2px;padding:20px 0 4px}
+.pic svg{height:100%;width:auto}
+.tile{background:var(--bg);border-radius:20px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column}
+.tile .pic{height:300px}
+.tile div:last-child{padding:18px 22px 22px}
+.tile h3{margin:0 0 6px}.tile p{margin:0 0 10px;color:var(--muted)}
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:32px;margin-top:28px}
+.why>div{border-top:2px solid var(--ink);padding-top:16px}
 /* histoire */
 .two{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:start}
 @media(max-width:860px){.two{grid-template-columns:minmax(0,1fr)}}
@@ -68,40 +83,65 @@ a{color:inherit}
 .road time{font:24px/1.1 Gloock,Georgia,serif;color:var(--hi)}
 .road p{margin:0}
 /* gamme */
-.alt{background:var(--alt)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px;margin-top:32px}
-.fl,.prod{background:var(--bg);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
-.pic{background:color-mix(in srgb,var(--c) 24%,var(--bg));height:290px;display:flex;justify-content:center;align-items:flex-end;gap:4px;padding:20px 0 6px}
-.pic svg{height:100%;width:auto}
-.body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
-.body h3{margin:0}
-.taste{margin:0;color:var(--muted)}
-.label{margin-top:auto;background:var(--paper);color:#13203f;border:1px solid #e3dccf;border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.45}
-.label h4{margin:0 0 8px;font-size:14px}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:28px}
+.tools p{margin:0}
+.flav{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);background:var(--bg);border-radius:24px;overflow:hidden;margin-bottom:28px}
+.flav .pic{min-height:440px;padding:32px 0 8px}
+.flav .pic svg{height:400px}
+.finfo{padding:clamp(22px,3vw,40px);display:flex;flex-direction:column;gap:18px}
+.finfo h2{margin:0}
+.finfo>p{margin:0}
+.taste{color:var(--muted)}
+.fx{background:var(--alt);border-radius:16px;padding:18px 20px}
+.fx h3{margin:0 0 10px}
+.fx ul{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:12px}
+.fx p{margin:2px 0 0}
+.fxh{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.lv{display:inline-flex;gap:4px;align-items:center}
+.lv i{width:18px;height:8px;border-radius:4px;background:var(--line)}
+.lv i.on{background:var(--c)}
+.acc{border:1px solid var(--line);border-radius:16px}
+.acc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:52px;padding:8px 20px;font-weight:700}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"+";font-size:26px;font-weight:400;line-height:1}
+.acc[open] summary::after{content:"−"}
+.acc .label{margin:0 16px 16px}
+.label{background:var(--paper);color:#13203f;border:1px solid #e3dccf;border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.45}
 .label p{margin:0 0 6px}
 .label .end{margin:8px 0 0;padding-top:8px;border-top:1px dashed #cfc6b6;font-weight:700}
+.fbuy{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:auto}
+@media(max-width:860px){.flav{grid-template-columns:minmax(0,1fr)}.flav .pic{min-height:340px}.flav .pic svg{height:310px}}
 /* ingrédients */
-.plants{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));column-gap:56px;margin-top:28px}
+.plants{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));column-gap:56px}
 .plant{display:grid;grid-template-columns:48px minmax(0,1fr);gap:16px;padding:18px 0;border-top:1px solid var(--line)}
 .sw{width:48px;height:48px;border-radius:50%;background:var(--c);display:grid;place-items:center}
 .plant p{margin:2px 0 0}
 .plant i{color:var(--muted)}
+.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:20px;margin-top:20px}
+.cert{background:var(--bg);border-radius:16px;padding:20px;display:grid;grid-template-columns:52px minmax(0,1fr);gap:16px;align-content:start}
+.cert p{margin:4px 0 0}
+.seal{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--woad);color:#fff}
+.seal.k{background:var(--flower);color:#13203f}
+.st{display:inline-block;white-space:nowrap;margin-top:8px;padding:2px 10px;border-radius:999px;font-size:14px;font-weight:700;background:var(--alt);color:var(--hi)}
+.st.k{background:color-mix(in srgb,var(--flower) 30%,var(--bg));color:var(--ink)}
+.certh{margin-top:40px}
 /* gaba */
 .gaba{background:var(--woad-d);color:#fff}
 .gaba p,.gaba li{color:#dfe6fb}
 .gaba h3{color:var(--flower)}
-.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:32px;margin-top:28px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:32px}
 .check{margin-top:40px;background:rgba(255,255,255,.07);border-radius:18px;padding:clamp(20px,3vw,32px)}
 .check ul{margin:0;padding-left:20px;display:grid;gap:10px;max-width:80ch}
 /* recettes */
-.rec{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:36px;margin-top:28px}
+.rec{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:36px}
 .r{display:grid;grid-template-columns:64px minmax(0,1fr);gap:18px}
 .r ul{margin:0 0 10px;padding-left:18px}
 .r p{margin:0}
 /* boutique */
-.prod{padding:0 0 22px}
-.prod .pic{height:200px}
-.prod .body{padding:18px 22px 0}
+.prod{background:var(--bg);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;padding-bottom:22px}
+.prod .pic{height:230px}
+.prod .body{padding:18px 22px 0;display:flex;flex-direction:column;gap:12px;flex:1}
+.prod h3{margin:0}
 .seg{display:flex;flex-wrap:wrap;gap:8px;border:0;padding:0;margin:0}
 .seg label{position:relative;flex:1 1 auto}
 .seg input{position:absolute;opacity:0;width:1px;height:1px}
@@ -111,10 +151,14 @@ a{color:inherit}
 .buy{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
 .price{font:24px Gloock,Georgia,serif;white-space:nowrap}
 .price small{display:block;font:14px "Schibsted Grotesk",sans-serif}
-/* bien boire */
-.bb{background:var(--brick);color:#13203f}
-.bb ul{margin:0;padding-left:20px;display:grid;gap:10px;max-width:72ch}
-.foot{background:var(--woad-d);color:#dfe6fb;padding:36px max(5vw,16px)}
+.shipline{display:flex;flex-wrap:wrap;gap:8px 24px;margin:0}
+/* pied */
+.bb{background:var(--brick);color:#13203f;padding:28px max(5vw,16px)}
+.bb .in{display:grid;grid-template-columns:minmax(0,14em) minmax(0,1fr);gap:12px 32px}
+.bb h2{font-size:30px;margin:0}
+.bb ul{margin:0;padding-left:20px;display:grid;gap:6px}
+@media(max-width:700px){.bb .in{grid-template-columns:minmax(0,1fr)}}
+.foot{background:var(--woad-d);color:#dfe6fb;padding:32px max(5vw,16px)}
 .foot .in{display:flex;flex-wrap:wrap;gap:16px 40px;justify-content:space-between;align-items:center}
 .foot p{margin:0}
 /* panier */
@@ -147,15 +191,15 @@ input[type=text],input[type=email]{font:inherit;font-size:16px;min-height:44px;w
 .empty{padding:28px 0;display:grid;gap:14px;justify-items:start}
 .toast{position:fixed;left:50%;bottom:24px;z-index:60;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:999px;transition:.2s;max-width:calc(100% - 32px)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.b{animation:none;opacity:.5}.drawer,.shade,.toast,.meter i{transition:none}}
-@media(max-width:600px){.pic{height:240px}.road li{grid-template-columns:minmax(0,1fr);gap:4px}}
+@media(prefers-reduced-motion:reduce){.b{animation:none;opacity:.5}.drawer,.shade,.toast,.meter i{transition:none}}
+@media(max-width:600px){.tile .pic{height:250px}.road li{grid-template-columns:minmax(0,1fr);gap:4px}}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="in bar">
     <a class="logo" href="#accueil"><svg width="30" height="30" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="14" fill="#1f3f8a"/><g fill="#f4c430"><circle cx="14" cy="8.6" r="4"/><circle cx="19.4" cy="14" r="4"/><circle cx="14" cy="19.4" r="4"/><circle cx="8.6" cy="14" r="4"/></g><circle cx="14" cy="14" r="2.4" fill="#1f3f8a"/></svg>Euphoria</a>
-    <nav class="links" aria-label="Sections">
+    <nav class="links" aria-label="Pages">
       <a href="#histoire">Notre histoire</a><a href="#gamme">Gamme et étiquettes</a><a href="#ingredients">Ingrédients</a><a href="#gaba">Le GABA</a><a href="#recettes">Recettes</a><a href="#boutique">Boutique</a>
     </nav>
     <button class="btn btn-o" id="cartBtn" aria-label="Ouvrir le panier">Panier <span id="cnt">0</span></button>
@@ -163,134 +207,170 @@ input[type=text],input[type=email]{font:inherit;font-size:16px;min-height:44px;w
 </header>
 
 <main>
-<section class="hero" id="accueil">
-  <div class="in htxt">
-    <h1>Euphoria, l'apéritif sans alcool aux plantes d'Occitanie</h1>
-    <div><p>Trois boissons pétillantes à la violette, à la gentiane et à la verveine. Des plantes choisies pour accompagner les moments de détente entre amis, sans une goutte d'alcool.</p>
-    <div class="acts"><a class="btn btn-y" href="#boutique">Commander</a><a class="btn btn-o" href="#histoire">Lire notre histoire</a></div></div>
-  </div>
-  <div class="scene">
-    <svg viewBox="0 0 1200 440" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Trois bouteilles Euphoria sur un rebord de brique, devant le soleil couchant et les toits de Toulouse">
-      <defs>
-        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f3f8a"/><stop offset=".55" stop-color="#4a6cc0"/><stop offset="1" stop-color="#eaa696"/></linearGradient>
-        <radialGradient id="sun"><stop offset="0" stop-color="#ffe489"/><stop offset="1" stop-color="#f4c430"/></radialGradient>
-        <pattern id="brk" width="48" height="18" patternUnits="userSpaceOnUse"><rect width="48" height="18" fill="#cf7f70"/><path d="M0 9H48M0 17.3H48M24 0V9M1 9V18M47 9V18" stroke="#b5655a" stroke-width="1.5"/></pattern>
-      </defs>
-      <rect width="1200" height="440" fill="url(#sky)"/>
-      <circle cx="600" cy="262" r="160" fill="#f4c430" opacity=".13"/>
-      <circle cx="600" cy="262" r="104" fill="url(#sun)"/>
-      <path d="M0 300L60 282 120 294 180 272 260 288 330 266 420 282 500 268 580 286 660 272 760 290 840 270 930 286 1010 268 1100 284 1200 272V440H0Z" fill="#3c5daa" opacity=".85"/>
-      <g fill="#142a5e">
-        <path d="M294 330V212h72v118zM302 212v-38h56v38zM310 174v-30h40v30zM316 144v-26h28v26zM316 118l14-76 14 76z"/>
-        <path d="M0 440V328l50-22 50 22v-8l60-26 60 26v12h40v-20l46-20 46 20v28h60v-14l54-24 54 24v4h70v-18l50-22 50 22v24h60v-10l56-24 56 24v-2h64v-22l48-20 48 20v30h60l59-20 59 20V440Z"/>
-      </g>
-      <g fill="#f4c430" opacity=".85"><rect x="312" y="222" width="8" height="16" rx="4"/><rect x="340" y="222" width="8" height="16" rx="4"/><rect x="318" y="182" width="7" height="14" rx="3.5"/><rect x="336" y="182" width="7" height="14" rx="3.5"/><rect x="326" y="150" width="7" height="12" rx="3.5"/><rect x="130" y="318" width="8" height="12" rx="2"/><rect x="236" y="328" width="8" height="12" rx="2"/><rect x="392" y="322" width="8" height="12" rx="2"/><rect x="800" y="318" width="8" height="12" rx="2"/><rect x="958" y="310" width="8" height="12" rx="2"/><rect x="1124" y="322" width="8" height="12" rx="2"/></g>
-      <rect y="356" width="1200" height="84" fill="url(#brk)"/>
-      <rect y="349" width="1200" height="10" fill="#efbcae"/>
-      <rect y="359" width="1200" height="6" fill="#000" opacity=".14"/>
-      <g id="wd">
-        <path d="M372 352C368 300 360 270 350 236M372 352C378 312 392 286 404 264M370 330C356 318 340 312 326 306" stroke="#2f6236" stroke-width="4" fill="none" stroke-linecap="round"/>
-        <path d="M364 318c-18-6-26-18-26-30 16 4 26 14 26 30zM378 306c14-10 28-12 36-8-6 12-20 16-36 8zM362 284c-14-8-20-20-18-30 12 6 18 16 18 30z" fill="#6f9e46"/>
-        <g fill="#f4c430"><circle cx="350" cy="232" r="6"/><circle cx="342" cy="240" r="5"/><circle cx="358" cy="241" r="5"/><circle cx="350" cy="222" r="4"/><circle cx="404" cy="260" r="6"/><circle cx="412" cy="268" r="5"/><circle cx="397" cy="268" r="4"/><circle cx="326" cy="302" r="5"/><circle cx="318" cy="308" r="4"/></g>
-      </g>
-      <use href="#wd" transform="translate(1212 0) scale(-1 1)"/>
-      <g id="hb"></g>
-    </svg>
-  </div>
-</section>
-<p class="proto">Projet étudiant : produits, prix et étiquettes sont des prototypes. La boutique est une démonstration, aucune commande ni aucun paiement n'est enregistré.</p>
-
-<section class="band" id="histoire">
-  <div class="in two">
-    <div>
-      <h2>Une idée née à Toulouse, entre deux cours</h2>
-      <p>Tout est parti d'une soirée où la moitié de la table ne buvait pas. Certains conduisaient, d'autres avaient entraînement le lendemain, d'autres n'aimaient tout simplement pas l'alcool. Pour eux, le choix se résumait à un soda trop sucré ou à un verre d'eau.</p>
-      <p>Nous sommes une équipe d'étudiants ingénieurs et managers toulousains. En cherchant pourquoi l'alcool détend, nous avons découvert le rôle du GABA, le messager chimique du calme dans le cerveau. Au Royaume-Uni, GABA Labs explore déjà des alternatives à l'alcool à base de plantes qui ciblent ce système.</p>
-      <p>Euphoria veut apporter cette idée à l'apéritif français : des plantes de chez nous, un vrai goût d'adulte, de l'amertume, des bulles, et pas de lendemain difficile.</p>
-      <p class="lead">Pour qui ? Les 20 à 35 ans qui sortent mais boivent moins, celles et ceux qui conduisent ce soir-là, les sportifs, et tous ceux qui font une pause.</p>
+<!-- ACCUEIL -->
+<div class="view" data-v="accueil" data-t="Euphoria, apéritif sans alcool">
+  <section class="hero">
+    <div class="in htxt">
+      <h1 tabindex="-1">Euphoria, l'apéritif sans alcool aux plantes d'Occitanie</h1>
+      <div><p>Trois boissons pétillantes à la violette, à la gentiane et à la verveine. Des plantes choisies pour accompagner les moments de détente entre amis, sans une goutte d'alcool.</p>
+      <div class="acts"><a class="btn btn-y" href="#boutique">Commander</a><a class="btn btn-o" href="#gamme">Découvrir la gamme</a></div></div>
     </div>
-    <div>
-      <h3>Feuille de route</h3>
-      <ol class="road">
-        <li><time>Nov. 2026</time><p>Concept, étude de marché, choix des plantes et piste de partenariat avec GABA Labs.</p></li>
-        <li><time>Printemps 2027</time><p>Formulation des trois recettes et premières dégustations à l'aveugle.</p></li>
-        <li><time>Fin 2027</time><p>Validation réglementaire (statut, étiquetage) et petite série de production.</p></li>
-        <li><time>2028</time><p>Lancement en ligne et dans les bars toulousains.</p></li>
-      </ol>
-      <p class="hint">Calendrier prévisionnel.</p>
+    <div class="scene">
+      <svg viewBox="0 0 1200 440" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Trois bouteilles Euphoria sur un rebord de brique, devant le soleil couchant et les toits de Toulouse">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f3f8a"/><stop offset=".55" stop-color="#4a6cc0"/><stop offset="1" stop-color="#eaa696"/></linearGradient>
+          <radialGradient id="sun"><stop offset="0" stop-color="#ffe489"/><stop offset="1" stop-color="#f4c430"/></radialGradient>
+          <pattern id="brk" width="48" height="18" patternUnits="userSpaceOnUse"><rect width="48" height="18" fill="#cf7f70"/><path d="M0 9H48M0 17.3H48M24 0V9M1 9V18M47 9V18" stroke="#b5655a" stroke-width="1.5"/></pattern>
+        </defs>
+        <rect width="1200" height="440" fill="url(#sky)"/>
+        <circle cx="600" cy="262" r="170" fill="#f4c430" opacity=".13"/>
+        <circle cx="600" cy="262" r="110" fill="url(#sun)"/>
+        <path d="M0 300L60 282 120 294 180 272 260 288 330 266 420 282 500 268 580 286 660 272 760 290 840 270 930 286 1010 268 1100 284 1200 272V440H0Z" fill="#3c5daa" opacity=".85"/>
+        <g fill="#142a5e">
+          <path d="M294 330V212h72v118zM302 212v-38h56v38zM310 174v-30h40v30zM316 144v-26h28v26zM316 118l14-76 14 76z"/>
+          <path d="M0 440V328l50-22 50 22v-8l60-26 60 26v12h40v-20l46-20 46 20v28h60v-14l54-24 54 24v4h70v-18l50-22 50 22v24h60v-10l56-24 56 24v-2h64v-22l48-20 48 20v30h60l59-20 59 20V440Z"/>
+        </g>
+        <g fill="#f4c430" opacity=".85"><rect x="312" y="222" width="8" height="16" rx="4"/><rect x="340" y="222" width="8" height="16" rx="4"/><rect x="318" y="182" width="7" height="14" rx="3.5"/><rect x="336" y="182" width="7" height="14" rx="3.5"/><rect x="326" y="150" width="7" height="12" rx="3.5"/><rect x="130" y="318" width="8" height="12" rx="2"/><rect x="236" y="328" width="8" height="12" rx="2"/><rect x="392" y="322" width="8" height="12" rx="2"/><rect x="800" y="318" width="8" height="12" rx="2"/><rect x="958" y="310" width="8" height="12" rx="2"/><rect x="1124" y="322" width="8" height="12" rx="2"/></g>
+        <rect y="356" width="1200" height="84" fill="url(#brk)"/>
+        <rect y="349" width="1200" height="10" fill="#efbcae"/>
+        <rect y="359" width="1200" height="6" fill="#000" opacity=".14"/>
+        <g id="wd">
+          <path d="M372 352C368 300 360 270 350 236M372 352C378 312 392 286 404 264M370 330C356 318 340 312 326 306" stroke="#2f6236" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M364 318c-18-6-26-18-26-30 16 4 26 14 26 30zM378 306c14-10 28-12 36-8-6 12-20 16-36 8zM362 284c-14-8-20-20-18-30 12 6 18 16 18 30z" fill="#6f9e46"/>
+          <g fill="#f4c430"><circle cx="350" cy="232" r="6"/><circle cx="342" cy="240" r="5"/><circle cx="358" cy="241" r="5"/><circle cx="350" cy="222" r="4"/><circle cx="404" cy="260" r="6"/><circle cx="412" cy="268" r="5"/><circle cx="397" cy="268" r="4"/><circle cx="326" cy="302" r="5"/><circle cx="318" cy="308" r="4"/></g>
+        </g>
+        <use href="#wd" transform="translate(1212 0) scale(-1 1)"/>
+        <g id="hb"></g>
+      </svg>
     </div>
-  </div>
-</section>
-
-<section class="band alt" id="gamme">
-  <div class="in">
-    <h2>Trois saveurs, trois moments</h2>
-    <p class="lead">Chaque bouteille de 25 cl se boit bien fraîche, seule ou en cocktail. Voici l'avant et l'arrière de nos étiquettes.</p>
-    <div class="grid" id="cards"></div>
-  </div>
-</section>
-
-<section class="band" id="ingredients">
-  <div class="in">
-    <h2>Ce qu'il y a dans la bouteille</h2>
-    <p class="lead">Neuf plantes, choisies d'abord pour le goût, puis pour leur usage traditionnel autour de la détente. Pas de kava, pas de CBD, pas de sucre en excès.</p>
-    <div class="plants" id="plants"></div>
-  </div>
-</section>
-
-<section class="band gaba" id="gaba">
-  <div class="in">
-    <h2>Pourquoi le GABA ?</h2>
-    <div class="cols">
-      <div><h3>Le frein du cerveau</h3><p>Le GABA (acide gamma-aminobutyrique) est le principal neurotransmetteur inhibiteur : il ralentit l'activité des neurones et participe à la sensation de calme.</p></div>
-      <div><h3>Ce que fait l'alcool</h3><p>L'alcool renforce notamment l'action du GABA sur les récepteurs GABA-A, d'où la détente. Mais il agit aussi sur bien d'autres systèmes : gueule de bois, accoutumance et risques pour la santé.</p></div>
-      <div><h3>Notre approche</h3><p>Euphoria associe des plantes traditionnellement liées à la détente à un vrai goût d'apéritif. Les preuves scientifiques varient selon les plantes : nous parlons de goût et de moment, pas d'effet garanti.</p></div>
+  </section>
+  <p class="proto">Projet étudiant : produits, prix et étiquettes sont des prototypes. La boutique est une démonstration, aucune commande ni aucun paiement n'est enregistré.</p>
+  <section class="band alt">
+    <div class="in">
+      <h2>Trois saveurs, trois moments</h2>
+      <div class="grid" id="tiles"></div>
     </div>
-    <div class="check">
-      <h3>Ce que nous devons encore valider</h3>
-      <ul>
-        <li>Le statut réglementaire : selon la dose d'extraits, Euphoria serait une boisson classique ou un complément alimentaire, avec des règles d'étiquetage différentes.</li>
-        <li>Les allégations : le règlement européen 1924/2006 encadre strictement les allégations de santé. Aucune ne figurera sur l'étiquette sans autorisation.</li>
-        <li>Alcarelle : la molécule développée par l'équipe du professeur David Nutt reste une piste à long terme, envisagée uniquement si elle est autorisée en Europe.</li>
-        <li>Des tests de goût et de tolérance avant toute mise en vente.</li>
-      </ul>
+  </section>
+  <section class="band">
+    <div class="in">
+      <h2>Pourquoi Euphoria</h2>
+      <div class="why">
+        <div><h3>Des plantes d'ici</h3><p>Violette de Toulouse, gentiane des Pyrénées, verveine du Sud : des saveurs d'apéritif français, avec des labels visés dès la conception.</p><a class="tl" href="#ingredients">Voir les ingrédients</a></div>
+        <div><h3>Le GABA, sans l'alcool</h3><p>L'alcool détend en agissant sur le GABA, le frein naturel du cerveau. Nous misons sur des plantes plutôt que sur l'alcool.</p><a class="tl" href="#gaba">Comprendre le GABA</a></div>
+        <div><h3>Une idée étudiante</h3><p>Euphoria est née à Toulouse, d'une soirée où la moitié de la table ne buvait pas d'alcool et n'avait rien d'intéressant à boire.</p><a class="tl" href="#histoire">Lire notre histoire</a></div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
-<section class="band" id="recettes">
-  <div class="in">
-    <h2>Trois façons de le servir</h2>
-    <div class="rec" id="rec"></div>
-  </div>
-</section>
+<!-- HISTOIRE -->
+<div class="view" data-v="histoire" data-t="Notre histoire – Euphoria" hidden>
+  <section class="phead"><div class="in"><h1 tabindex="-1">Notre histoire</h1><p>Comment une soirée entre amis est devenue un projet de boisson.</p></div></section>
+  <section class="band">
+    <div class="in two">
+      <div>
+        <h2>Une idée née à Toulouse, entre deux cours</h2>
+        <p>Tout est parti d'une soirée où la moitié de la table ne buvait pas. Certains conduisaient, d'autres avaient entraînement le lendemain, d'autres n'aimaient tout simplement pas l'alcool. Pour eux, le choix se résumait à un soda trop sucré ou à un verre d'eau.</p>
+        <p>Nous sommes une équipe d'étudiants ingénieurs et managers toulousains. En cherchant pourquoi l'alcool détend, nous avons découvert le rôle du GABA, le messager chimique du calme dans le cerveau. Au Royaume-Uni, GABA Labs explore déjà des alternatives à l'alcool à base de plantes qui ciblent ce système.</p>
+        <p>Euphoria veut apporter cette idée à l'apéritif français : des plantes de chez nous, un vrai goût d'adulte, de l'amertume, des bulles, et pas de lendemain difficile.</p>
+        <p class="lead">Pour qui ? Les 20 à 35 ans qui sortent mais boivent moins, celles et ceux qui conduisent ce soir-là, les sportifs, et tous ceux qui font une pause.</p>
+      </div>
+      <div>
+        <h3>Feuille de route</h3>
+        <ol class="road">
+          <li><time>Nov. 2026</time><p>Concept, étude de marché, choix des plantes et piste de partenariat avec GABA Labs.</p></li>
+          <li><time>Printemps 2027</time><p>Formulation des trois recettes et premières dégustations à l'aveugle.</p></li>
+          <li><time>Fin 2027</time><p>Validation réglementaire, démarches de labels et petite série de production.</p></li>
+          <li><time>2028</time><p>Lancement en ligne et dans les bars toulousains.</p></li>
+        </ol>
+        <p class="hint">Calendrier prévisionnel.</p>
+      </div>
+    </div>
+  </section>
+</div>
 
-<section class="band alt" id="boutique">
-  <div class="in">
-    <h2>Boutique</h2>
-    <p class="lead">Choisissez votre format. Livraison offerte dès 40 €, expédition depuis Toulouse.</p>
-    <div class="grid" id="shop"></div>
-  </div>
-</section>
+<!-- GAMME -->
+<div class="view" data-v="gamme" data-t="Gamme et étiquettes – Euphoria" hidden>
+  <section class="phead"><div class="in"><h1 tabindex="-1">Gamme et étiquettes</h1><p>Trois saveurs pour trois moments de la soirée, en bouteilles de 25 cl à boire bien fraîches.</p></div></section>
+  <section class="band alt">
+    <div class="in">
+      <div class="tools"><p class="hint">Les effets décrits sont des effets recherchés, fondés sur l'usage traditionnel des plantes. Ils varient selon les personnes et ne sont pas garantis.</p><button class="btn btn-o" id="toggleAll" aria-pressed="false">Afficher tous les ingrédients</button></div>
+      <div id="flavs"></div>
+    </div>
+  </section>
+</div>
 
-<section class="band bb" id="bien-boire">
+<!-- INGRÉDIENTS -->
+<div class="view" data-v="ingredients" data-t="Ingrédients et certifications – Euphoria" hidden>
+  <section class="phead"><div class="in"><h1 tabindex="-1">Ingrédients et certifications</h1><p>Neuf plantes choisies d'abord pour le goût, puis pour leur usage traditionnel autour de la détente. Pas de kava, pas de CBD, pas de sucre en excès.</p></div></section>
+  <section class="band">
+    <div class="in">
+      <h2>Ce qu'il y a dans la bouteille</h2>
+      <div class="plants" id="plants"></div>
+    </div>
+  </section>
+  <section class="band alt">
+    <div class="in">
+      <h2>Labels et certifications</h2>
+      <p class="lead">Euphoria n'a encore obtenu aucun label : voici ce que la loi impose pour vendre, et les labels que nous visons dès la conception.</p>
+      <h3 class="certh">Obligatoire pour vendre</h3>
+      <div class="certs" id="certReq"></div>
+      <h3 class="certh">Labels visés</h3>
+      <div class="certs" id="certGoal"></div>
+    </div>
+  </section>
+</div>
+
+<!-- GABA -->
+<div class="view" data-v="gaba" data-t="Le GABA – Euphoria" hidden>
+  <section class="phead"><div class="in"><h1 tabindex="-1">Le GABA, expliqué</h1><p>Pourquoi l'alcool détend, et comment Euphoria propose une autre voie.</p></div></section>
+  <section class="band gaba">
+    <div class="in">
+      <div class="cols">
+        <div><h3>Le frein du cerveau</h3><p>Le GABA (acide gamma-aminobutyrique) est le principal neurotransmetteur inhibiteur : il ralentit l'activité des neurones et participe à la sensation de calme.</p></div>
+        <div><h3>Ce que fait l'alcool</h3><p>L'alcool renforce notamment l'action du GABA sur les récepteurs GABA-A, d'où la détente. Mais il agit aussi sur bien d'autres systèmes : gueule de bois, accoutumance et risques pour la santé.</p></div>
+        <div><h3>Notre approche</h3><p>Euphoria associe des plantes traditionnellement liées à la détente à un vrai goût d'apéritif. Les preuves scientifiques varient selon les plantes : nous parlons de goût et de moment, pas d'effet garanti.</p></div>
+      </div>
+      <div class="check">
+        <h3>Ce que nous devons encore valider</h3>
+        <ul>
+          <li>Le statut réglementaire : selon la dose d'extraits, Euphoria serait une boisson classique ou un complément alimentaire, avec des règles d'étiquetage différentes.</li>
+          <li>Les allégations : le règlement européen 1924/2006 encadre strictement les allégations de santé. Aucune ne figurera sur l'étiquette sans autorisation.</li>
+          <li>Alcarelle : la molécule développée par l'équipe du professeur David Nutt reste une piste à long terme, envisagée uniquement si elle est autorisée en Europe.</li>
+          <li>Des tests de goût et de tolérance avant toute mise en vente.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- RECETTES -->
+<div class="view" data-v="recettes" data-t="Recettes – Euphoria" hidden>
+  <section class="phead"><div class="in"><h1 tabindex="-1">Recettes</h1><p>Trois façons simples de servir Euphoria, sans shaker ni matériel de bar.</p></div></section>
+  <section class="band"><div class="in"><div class="rec" id="rec"></div></div></section>
+</div>
+
+<!-- BOUTIQUE -->
+<div class="view" data-v="boutique" data-t="Boutique – Euphoria" hidden>
+  <section class="phead"><div class="in"><h1 tabindex="-1">Boutique</h1><p class="shipline"><span>Livraison 2,90 €</span><span>Offerte dès 25 €</span><span>Expédition depuis Toulouse</span></p></div></section>
+  <section class="band alt"><div class="in"><div class="grid" id="shop" style="margin-top:0"></div></div></section>
+</div>
+</main>
+
+<section class="bb">
   <div class="in">
     <h2>Bien boire Euphoria</h2>
     <ul>
-      <li>Sans alcool, mais pas une boisson pour enfants : déconseillé aux moins de 18 ans.</li>
-      <li>Déconseillé aux femmes enceintes ou allaitantes et aux personnes sous traitement médical. En cas de doute, demandez l'avis de votre médecin.</li>
-      <li>Pas plus de 2 bouteilles par jour.</li>
-      <li>À ne pas associer à l'alcool ni à des médicaments calmants.</li>
+      <li>Sans alcool, mais déconseillé aux moins de 18 ans, aux femmes enceintes ou allaitantes et aux personnes sous traitement médical.</li>
+      <li>Pas plus de 2 bouteilles par jour, et pas avec de l'alcool ou des médicaments calmants.</li>
     </ul>
   </div>
 </section>
-</main>
-
 <footer class="foot">
   <div class="in">
     <p style="font:26px Gloock,Georgia,serif;color:#fff">Euphoria</p>
     <p>Apéritifs sans alcool aux plantes, Toulouse. Projet étudiant 2026.</p>
-    <a class="btn btn-o" href="#accueil">Haut de page</a>
+    <a class="btn btn-o" href="#accueil">Retour à l'accueil</a>
   </div>
 </footer>
 
@@ -340,22 +420,26 @@ input[type=text],input[type=email]{font:inherit;font-size:16px;min-height:44px;w
 {
 const $=s=>document.querySelector(s);
 const eur=n=>n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'});
+const SHIP=2.9,FREE=25;
 const F=[
- {id:'violette',name:'Violette',color:'#7a4fa3',short:'Floral et acidulé, pour l\'apéritif en terrasse.',
-  taste:'Floral et acidulé : violette de Toulouse, cassis et mélisse. Pour l\'apéritif en terrasse.',
+ {id:'violette',name:'Violette',color:'#7a4fa3',art:'v',short:'Floral et acidulé, pour l\'apéritif en terrasse.',
+  taste:'Floral et acidulé : violette de Toulouse, cassis et mélisse.',moment:'L\'apéritif en terrasse, en début de soirée.',
+  fx:[['Détente légère',4,'Mélisse et passiflore, deux plantes traditionnellement utilisées pour apaiser.'],['Convivialité',4,'Un goût d\'apéritif floral pour trinquer avec tout le monde.'],['Fraîcheur',3,'L\'acidité du cassis et les bulles réveillent le palais.']],
   denom:'Boisson gazeuse sans alcool aromatisée à la violette, aux extraits de plantes.',
   ingr:'eau gazéifiée, jus de cassis à base de concentré (6 %), sirop d\'agave, extraits de mélisse et de passiflore, arôme naturel de violette, acidifiant : acide citrique, concentré de carotte noire (coloration).'},
- {id:'gentiane',name:'Gentiane',color:'#d98a2b',short:'Amer et zesté, l\'esprit d\'un spritz.',
-  taste:'Amer et zesté : gentiane des Pyrénées, orange amère et houblon. L\'esprit d\'un spritz.',
+ {id:'gentiane',name:'Gentiane',color:'#d98a2b',art:'g',short:'Amer et zesté, l\'esprit d\'un spritz.',
+  taste:'Amer et zesté : gentiane des Pyrénées, orange amère et houblon.',moment:'Avant le repas, à la place du spritz.',
+  fx:[['Ouvre l\'appétit',5,'L\'amertume de la gentiane, base des apéritifs traditionnels, prépare au repas.'],['Détente',3,'Houblon et écorce de magnolia, utilisés traditionnellement pour leurs vertus relaxantes.'],['Caractère',5,'Une amertume franche qui remplace le « mordant » de l\'alcool.']],
   denom:'Boisson gazeuse sans alcool amère, aux extraits de plantes.',
   ingr:'eau gazéifiée, sucre de canne, jus d\'orange amère à base de concentré (5 %), extraits de racine de gentiane, de houblon et d\'écorce de magnolia, arômes naturels d\'agrumes, acidifiant : acide citrique.'},
- {id:'verveine',name:'Verveine',color:'#6f9e3c',short:'Frais et herbacé, pour finir la soirée en douceur.',
-  taste:'Frais et herbacé : verveine citronnée, tilleul et gingembre. Pour finir la soirée en douceur.',
+ {id:'verveine',name:'Verveine',color:'#6f9e3c',art:'r',short:'Frais et herbacé, pour finir la soirée en douceur.',
+  taste:'Frais et herbacé : verveine citronnée, tilleul et gingembre.',moment:'En fin de soirée ou après le dîner.',
+  fx:[['Apaisement',5,'Tilleul, camomille et verveine, les plantes des tisanes du soir.'],['Digestion légère',3,'Verveine et gingembre, traditionnellement servis après le repas.'],['Fraîcheur',4,'Citron et gingembre pour une finale nette.']],
   denom:'Boisson gazeuse sans alcool à l\'infusion de plantes.',
   ingr:'eau gazéifiée, infusion de verveine citronnée et de tilleul (8 %), sirop d\'agave, jus de citron à base de concentré, extraits de camomille et de mélisse, gingembre, arôme naturel.'}
 ];
-const FM=[{k:'1',l:'1 bouteille',p:3.9},{k:'6',l:'Pack de 6',p:21.9},{k:'12',l:'Pack de 12',p:41.9}];
-const BOX={t:'Coffret découverte',d:'2 bouteilles de chaque saveur (6 × 25 cl)',p:22.9,c:'#1f3f8a'};
+const FM=[{k:'1',l:'1 bouteille',p:2.9},{k:'6',l:'Pack de 6',p:15.9},{k:'12',l:'Pack de 12',p:28.9}];
+const BOX={t:'Coffret découverte',d:'2 bouteilles de chaque saveur (6 × 25 cl)',p:16.5,c:'#1f3f8a'};
 const PL=[
  ['Violette','Viola odorata','#7a4fa3','Son parfum poudré, emblème de Toulouse depuis le XIXe siècle.','Toulouse','Violette'],
  ['Mélisse','Melissa officinalis','#5f8f3a','Note citronnée ; plante traditionnellement utilisée pour la détente.','France','Violette, Verveine'],
@@ -367,32 +451,99 @@ const PL=[
  ['Tilleul','Tilia cordata','#b8a446','Notes de miel et de fleurs, la tisane du soir classique.','France','Verveine'],
  ['Camomille','Matricaria chamomilla','#d9b52c','Douceur ronde, tradition de la tisane apaisante.','Europe','Verveine']
 ];
+const CR=[
+ ['Étiquetage INCO','Règlement UE 1169/2011 : dénomination, ingrédients, allergènes, valeurs nutritionnelles, date de durabilité minimale, lot et adresse du responsable.','Obligatoire','doc'],
+ ['Hygiène HACCP','Production chez un embouteilleur qui applique un plan HACCP et dont l\'activité est déclarée auprès des services de l\'État.','Obligatoire','shield'],
+ ['Déclaration Compl\'Alim','Si la dose d\'extraits fait d\'Euphoria un complément alimentaire : déclaration avant la vente sur Compl\'Alim (ministère de l\'Agriculture), qui a remplacé Téléicare.','Obligatoire si complément','doc'],
+ ['Triman et Info-tri','Les bouteilles de boisson en verre peuvent en être exemptées, mais nos packs en carton porteront la signalétique de tri prévue par la loi AGEC.','Obligatoire sur les packs','loop']
+];
+const CG=[
+ ['Agriculture biologique','Logo AB et Eurofeuille pour des plantes bio, contrôlées par un organisme certificateur agréé.','Visé','leaf'],
+ ['Vegan','Recettes 100 % végétales, sans auxiliaire d\'origine animale, à faire certifier par un label vegan reconnu.','Visé','leaf'],
+ ['Origine France Garantie','Fabrication et étapes clés en France, vérifiées par un organisme indépendant.','Visé','pin'],
+ ['Nutri-Score','Affichage encore facultatif en France ; nous l\'afficherons dès le lancement.','Visé','bars']
+];
 const REC=[
  ['Violette spritz','#7a4fa3',['12 cl d\'Euphoria Violette','6 cl d\'eau pétillante','Glaçons, une rondelle de citron'],'Dans un verre à vin rempli de glaçons, versez la Violette puis l\'eau pétillante. Ajoutez le citron.'],
  ['Gentiane tonic','#d98a2b',['12 cl d\'Euphoria Gentiane','8 cl de tonic','Glaçons, un zeste d\'orange'],'Versez sur la glace, mélangez une fois et pressez le zeste au-dessus du verre.'],
  ['Verveine mule','#6f9e3c',['15 cl d\'Euphoria Verveine','5 cl de ginger beer sans alcool','Menthe, citron vert, glaçons'],'Écrasez légèrement la menthe, ajoutez la glace, la Verveine et la ginger beer, puis le citron vert.']
 ];
-const BP='M45 14h30v50c0 20 30 30 30 60v150q0 16-16 16h-58q-16 0-16-16v-150c0-30 30-40 30-60z';
+
+/* bouteille */
+const mix=(h,a,w)=>'#'+[1,3,5].map(i=>{const v=parseInt(h.slice(i,i+2),16),t=w?255:0;return Math.round(v+(t-v)*a).toString(16).padStart(2,'0')}).join('');
+const dk=(h,a)=>mix(h,a,0),lt=(h,a)=>mix(h,a,1);
+const BP='M56 26H84V90C84 112 118 120 118 150V326Q118 342 102 342H38Q22 342 22 326V150C22 120 56 112 56 90Z';
+const art=k=>{
+  if(k==='v')return `<path d="M62 242c-8-2-12-8-12-13 7 1 11 6 12 13zM78 242c8-2 12-8 12-13-7 1-11 6-12 13z" fill="#6f9e46"/><path d="M70 246V232" stroke="#4f7a36" stroke-width="1.6"/>${[0,1,2,3,4].map(i=>`<ellipse cx="70" cy="217.5" rx="4" ry="6.3" transform="rotate(${i*72+180} 70 224)" fill="${i<2?'#5a3a8a':'#7a4fa3'}"/>`).join('')}<circle cx="70" cy="224" r="2.3" fill="#f4c430"/>`;
+  if(k==='g')return `<path d="M70 248V212" stroke="#4f7a36" stroke-width="1.6"/><path d="M70 240c-9 0-13-5-14-9 7-1 12 3 14 9zM70 240c9 0 13-5 14-9-7-1-12 3-14 9z" fill="#6f9e46"/>${[[70,215],[61.5,225],[78.5,225]].map(([x,y])=>[0,1,2,3,4].map(i=>`<ellipse cx="${x}" cy="${y-4.2}" rx="1.7" ry="4.4" transform="rotate(${i*72} ${x} ${y})" fill="#e0a020"/>`).join('')+`<circle cx="${x}" cy="${y}" r="1.3" fill="#a86f08"/>`).join('')}`;
+  const lf='M0 0C4-4 10-5 15-3 11 2 5 3 0 0Z';
+  return `<path d="M70 248C70 236 71 224 70 210" stroke="#4f7a36" stroke-width="1.5" fill="none"/>${[242,232,222].map(y=>`<path d="${lf}" transform="translate(70 ${y}) rotate(-22)" fill="#6f9e46"/><path d="${lf}" transform="translate(70 ${y-3}) scale(-1 1) rotate(-22)" fill="#5f8f3a"/>`).join('')}<path d="${lf}" transform="translate(70 214) rotate(-95) scale(.8)" fill="#6f9e46"/>`;
+};
 let uid=0;
-const bottle=(c,name,at='',bub=false)=>{
-  const u='bt'+(++uid);
-  const bb=bub?[[36,270,4,0],[56,278,3,1.1],[76,262,5,2],[48,282,3,2.8],[86,274,3,.6],[66,268,4,3.4]].map(([x,y,r,d])=>`<circle class="b" cx="${x}" cy="${y}" r="${r}" fill="#fff" style="animation-delay:${d}s"/>`).join(''):'';
-  return `<svg ${at} viewBox="0 0 120 310" role="img" aria-label="Bouteille Euphoria ${name}"><defs><clipPath id="${u}c"><path d="${BP}"/></clipPath><linearGradient id="${u}g" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".42"/><stop offset=".22" stop-color="#fff" stop-opacity=".06"/><stop offset=".75" stop-color="#000" stop-opacity=".05"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient></defs><ellipse cx="60" cy="299" rx="50" ry="7" fill="#000" opacity=".22"/><path d="${BP}" fill="#fff" fill-opacity=".24"/><g clip-path="url(#${u}c)"><rect y="86" width="120" height="230" fill="${c}"/>${bb}<rect width="120" height="310" fill="url(#${u}g)"/></g><path d="${BP}" fill="none" stroke="#fff" stroke-opacity=".65" stroke-width="2"/><rect x="42" y="2" width="36" height="17" rx="3" fill="#f4c430"/><rect x="42" y="14" width="36" height="3" fill="#000" opacity=".15"/><rect x="18" y="150" width="84" height="102" rx="5" fill="#fffdf8"/><g fill="#f4c430"><circle cx="60" cy="163" r="3.6"/><circle cx="65" cy="168" r="3.6"/><circle cx="60" cy="173" r="3.6"/><circle cx="55" cy="168" r="3.6"/></g><circle cx="60" cy="168" r="2" fill="#1f3f8a"/><text x="60" y="198" text-anchor="middle" font-family="Gloock,Georgia,serif" font-size="17" fill="#1f3f8a">Euphoria</text><rect x="36" y="205" width="48" height="2.5" fill="${c}"/><text x="60" y="224" text-anchor="middle" font-family="Schibsted Grotesk,sans-serif" font-weight="700" font-size="11" fill="#13203f">${name}</text><text x="60" y="241" text-anchor="middle" font-family="Schibsted Grotesk,sans-serif" font-size="8" fill="#4b587a">Sans alcool – 25 cl</text></svg>`;
+const bottle=(f,at='',bub=false)=>{
+  const u='bt'+(++uid),c=f.color;
+  const sb=[[40,306,1.6],[52,252,1.2],[98,282,1.4],[90,232,1],[46,142,1.2],[95,322,1.8],[64,112,1],[78,96,.9],[66,70,.8],[104,150,1.1]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" opacity=".4"/>`).join('');
+  const ab=bub?[[38,320,3,0],[58,330,2.2,1.1],[82,316,3.4,2],[48,334,2,2.8],[100,326,2.2,.6],[70,322,2.8,3.4]].map(([x,y,r,d])=>`<circle class="b" cx="${x}" cy="${y}" r="${r}" fill="#fff" style="animation-delay:${d}s"/>`).join(''):'';
+  const dr=[[34,160,1.7,2.3],[97,166,1.3,1.8],[108,314,1.9,2.5],[40,324,1.4,2],[86,330,1.2,1.7],[60,310,1.5,2.1],[110,158,1.2,1.6]].map(([x,y,rx,ry])=>`<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="#fff" opacity=".5"/><circle cx="${x-.5}" cy="${y-.8}" r=".5" fill="#fff"/>`).join('');
+  return `<svg ${at} viewBox="0 0 140 360" role="img" aria-label="Bouteille Euphoria ${f.name}"><defs><clipPath id="${u}c"><path d="${BP}"/></clipPath>`
+  +`<linearGradient id="${u}l" x1="0" x2="1"><stop offset="0" stop-color="${dk(c,.5)}"/><stop offset=".12" stop-color="${dk(c,.15)}"/><stop offset=".32" stop-color="${lt(c,.2)}"/><stop offset=".52" stop-color="${c}"/><stop offset=".82" stop-color="${dk(c,.22)}"/><stop offset="1" stop-color="${dk(c,.55)}"/></linearGradient>`
+  +`<linearGradient id="${u}v" x1="0" y1="0" x2="0" y2="1"><stop offset=".5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient>`
+  +`<linearGradient id="${u}h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".2" stop-color="#fff" stop-opacity=".8"/><stop offset=".8" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>`
+  +`<linearGradient id="${u}p" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".32"/><stop offset=".1" stop-color="#000" stop-opacity=".08"/><stop offset=".28" stop-color="#fff" stop-opacity=".35"/><stop offset=".42" stop-color="#fff" stop-opacity="0"/><stop offset=".82" stop-color="#000" stop-opacity=".06"/><stop offset="1" stop-color="#000" stop-opacity=".34"/></linearGradient>`
+  +`<linearGradient id="${u}k" x1="0" x2="1"><stop offset="0" stop-color="#9c780e"/><stop offset=".3" stop-color="#ffe489"/><stop offset=".5" stop-color="#f4c430"/><stop offset=".85" stop-color="#b38a12"/><stop offset="1" stop-color="#85650a"/></linearGradient>`
+  +`<filter id="${u}f" x="-40%" y="-300%" width="180%" height="700%"><feGaussianBlur stdDeviation="3.5"/></filter></defs>`
+  +`<ellipse cx="70" cy="345" rx="56" ry="6" fill="#000" opacity=".35" filter="url(#${u}f)"/><ellipse cx="88" cy="347" rx="42" ry="5" fill="${c}" opacity=".55" filter="url(#${u}f)"/>`
+  +`<path d="${BP}" fill="#fff" fill-opacity=".18"/>`
+  +`<g clip-path="url(#${u}c)"><rect y="46" width="140" height="314" fill="url(#${u}l)"/><rect y="46" width="140" height="314" fill="url(#${u}v)"/><ellipse cx="70" cy="46" rx="15" ry="2.6" fill="${lt(c,.4)}"/>${sb}${ab}<ellipse cx="70" cy="339" rx="44" ry="7" fill="${lt(c,.55)}" opacity=".55"/></g>`
+  +`<rect x="31" y="152" width="7" height="176" rx="3.5" fill="url(#${u}h)"/><rect x="106" y="160" width="3" height="160" rx="1.5" fill="url(#${u}h)" opacity=".6"/><path d="M61 96C61 114 38 124 31 146" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="3.5" stroke-linecap="round"/><rect x="59.5" y="32" width="3.5" height="24" rx="1.75" fill="#fff" opacity=".6"/>`
+  +`<path d="${BP}" fill="none" stroke="${dk(c,.6)}" stroke-opacity=".5" stroke-width="2.5"/><path d="${BP}" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1"/>`
+  +`<rect x="22" y="176" width="96" height="124" fill="#fffdf8"/><rect x="27" y="181" width="86" height="114" fill="none" stroke="${c}" stroke-width="1"/>`
+  +`<text x="70" y="204" text-anchor="middle" font-family="Gloock,Georgia,serif" font-size="19" fill="#1f3f8a">Euphoria</text>${art(f.art)}`
+  +`<text x="70" y="263" text-anchor="middle" font-family="Schibsted Grotesk,sans-serif" font-weight="700" font-size="12.5" fill="#13203f">${f.name}</text><rect x="52" y="269" width="36" height="2" fill="${c}"/>`
+  +`<text x="70" y="281" text-anchor="middle" font-family="Schibsted Grotesk,sans-serif" font-size="7" fill="#4b587a">Boisson aux plantes</text><text x="70" y="291" text-anchor="middle" font-family="Schibsted Grotesk,sans-serif" font-weight="700" font-size="7" fill="#1f3f8a">Sans alcool – 25 cl</text>`
+  +`<rect x="22" y="176" width="96" height="124" fill="url(#${u}p)"/>${dr}`
+  +`<rect x="56" y="58" width="28" height="22" fill="#1f3f8a"/><g fill="#f4c430"><circle cx="70" cy="65.5" r="2"/><circle cx="73.5" cy="69" r="2"/><circle cx="70" cy="72.5" r="2"/><circle cx="66.5" cy="69" r="2"/></g><rect x="56" y="58" width="28" height="22" fill="url(#${u}p)"/>`
+  +`<rect x="53" y="25" width="34" height="6" rx="3" fill="#fff" fill-opacity=".4" stroke="${dk(c,.4)}" stroke-opacity=".4"/>`
+  +`<rect x="52" y="4" width="36" height="23" rx="3" fill="url(#${u}k)"/><g stroke="#000" stroke-opacity=".14">${[56,60,64,68,72,76,80,84].map(x=>`<line x1="${x}" y1="7" x2="${x}" y2="20"/>`).join('')}</g><rect x="52" y="20" width="36" height="1.5" fill="#000" opacity=".2"/><rect x="53" y="5" width="34" height="2.5" rx="1.2" fill="#fff" opacity=".45"/></svg>`;
 };
 const glass=c=>`<svg viewBox="0 0 64 84" width="64" height="84" aria-hidden="true"><path d="M13 30h38l-3.6 46H16.6z" fill="${c}"/><rect x="20" y="36" width="12" height="12" rx="2" fill="#fff" opacity=".55" transform="rotate(-12 26 42)"/><rect x="33" y="44" width="11" height="11" rx="2" fill="#fff" opacity=".45" transform="rotate(10 38 50)"/><path d="M10 8h44l-5.6 70H15.6z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><circle cx="50" cy="12" r="9" fill="#f4c430"/><path d="M50 3v18M41 12h18" stroke="#d9a400" stroke-width="1.5"/></svg>`;
-
-$('#hb').innerHTML=bottle(F[1].color,F[1].name,'x="446" y="130" width="93" height="240"')+bottle(F[2].color,F[2].name,'x="661" y="130" width="93" height="240"')+bottle(F[0].color,F[0].name,'x="542" y="72" width="116" height="300"',true);
-
-$('#cards').innerHTML=F.map(f=>`<article class="fl" style="--c:${f.color}"><div class="pic">${bottle(f.color,f.name)}</div><div class="body"><h3>Euphoria ${f.name}</h3><p class="taste">${f.taste}</p><div class="label"><h4>Étiquette arrière</h4><p><b>Dénomination :</b> ${f.denom}</p><p><b>Ingrédients :</b> ${f.ingr}</p><p>Valeurs nutritionnelles en cours d'analyse. À conserver au frais ; une fois ouverte, à boire dans les 24 h.</p><p>Déconseillé aux moins de 18 ans, aux femmes enceintes ou allaitantes et aux personnes sous traitement médical. Ne pas dépasser 2 bouteilles par jour.</p><p class="end">Sans alcool – 25 cl – Euphoria, Toulouse</p></div></div></article>`).join('');
-
-$('#plants').innerHTML=PL.map(([n,l,c,r,o,w])=>`<div class="plant"><span class="sw" style="--c:${c}"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19C5 10 11 5 20 4c0 9-5 15-14 15zM5 19l9-9" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span><div><b>${n}</b> <i>${l}</i><p>${r}</p><small>Origine visée : ${o}. Dans : ${w}.</small></div></div>`).join('');
-
-$('#rec').innerHTML=REC.map(([t,c,ing,m])=>`<div class="r">${glass(c)}<div><h3>${t}</h3><ul>${ing.map(i=>`<li>${i}</li>`).join('')}</ul><p>${m}</p></div></div>`).join('');
-
+const ICO={doc:'<path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6" />',shield:'<path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6zM9 12l2 2 4-4"/>',loop:'<path d="M7 9a6 6 0 0 1 10-2l2 2M17 15a6 6 0 0 1-10 2l-2-2M19 5v4h-4M5 19v-4h4"/>',leaf:'<path d="M5 19C5 10 11 5 20 4c0 9-5 15-14 15zM5 19l9-9"/>',pin:'<path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/>',bars:'<path d="M5 19V11M10 19V7M15 19v-5M20 19V9"/>'};
+const icon=k=>`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICO[k]}</svg>`;
 const perL=(p,b)=>`soit ${eur(p/(b*.25))} le litre`;
-$('#shop').innerHTML=F.map(f=>`<article class="prod"><div class="pic" style="--c:${f.color}">${bottle(f.color,f.name)}</div><div class="body"><h3>Euphoria ${f.name}</h3><p class="taste">${f.short}</p><fieldset class="seg"><legend class="sr">Format</legend>${FM.map((m,i)=>`<label><input type="radio" name="fm-${f.id}" value="${m.k}"${i?'':' checked'}><span>${m.l}</span></label>`).join('')}</fieldset><div class="buy"><span class="price" id="pr-${f.id}">${eur(FM[0].p)}<small>${perL(FM[0].p,1)}</small></span><button class="btn btn-b" data-add="${f.id}">Ajouter au panier</button></div></div></article>`).join('')
- +`<article class="prod"><div class="pic" style="--c:#1f3f8a">${F.map(f=>bottle(f.color,f.name,'style="height:78%"')).join('')}</div><div class="body"><h3>${BOX.t}</h3><p class="taste">${BOX.d}. La meilleure façon de trouver votre saveur.</p><div class="buy"><span class="price">${eur(BOX.p)}<small>${perL(BOX.p,6)}</small></span><button class="btn btn-b" data-add="coffret">Ajouter au panier</button></div></div></article>`;
+const label=f=>`<div class="label"><p><b>Dénomination :</b> ${f.denom}</p><p><b>Ingrédients :</b> ${f.ingr}</p><p>Valeurs nutritionnelles en cours d'analyse. À conserver au frais ; une fois ouverte, à boire dans les 24 h.</p><p>Déconseillé aux moins de 18 ans, aux femmes enceintes ou allaitantes et aux personnes sous traitement médical. Ne pas dépasser 2 bouteilles par jour.</p><p class="end">Sans alcool – 25 cl – Euphoria, Toulouse</p></div>`;
 
+/* rendu des pages */
+$('#hb').innerHTML=bottle(F[1],'x="442" y="124" width="93.3" height="240"')+bottle(F[2],'x="664.7" y="124" width="93.3" height="240"')+bottle(F[0],'x="541.7" y="67" width="116.7" height="300"',true);
+$('#tiles').innerHTML=F.map(f=>`<a class="tile" href="#gamme"><div class="pic" style="--c:${f.color}">${bottle(f)}</div><div><h3>Euphoria ${f.name}</h3><p>${f.short}</p><span class="tl">Dès ${eur(FM[0].p)}</span></div></a>`).join('');
+$('#flavs').innerHTML=F.map(f=>`<article class="flav" style="--c:${f.color}"><div class="pic">${bottle(f)}</div><div class="finfo"><h2>Euphoria ${f.name}</h2><p class="taste">${f.taste}</p><p><b>Le moment :</b> ${f.moment}</p><section class="fx"><h3>Effets principaux</h3><ul>${f.fx.map(([n,l,t])=>`<li><div class="fxh"><b>${n}</b><span class="lv" role="img" aria-label="Intensité visée : ${l} sur 5">${[1,2,3,4,5].map(i=>`<i${i<=l?' class="on"':''}></i>`).join('')}</span></div><p>${t}</p></li>`).join('')}</ul><small>Intensité visée sur 5. Effets recherchés, non garantis.</small></section><details class="acc"><summary>Ingrédients et étiquette arrière</summary>${label(f)}</details><div class="fbuy"><button class="btn btn-b" data-add="${f.id}" data-fmt="1">Ajouter une bouteille, ${eur(FM[0].p)}</button><a class="tl" href="#boutique">Voir les packs</a></div></div></article>`).join('');
+$('#plants').innerHTML=PL.map(([n,l,c,r,o,w])=>`<div class="plant"><span class="sw" style="--c:${c}"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19C5 10 11 5 20 4c0 9-5 15-14 15zM5 19l9-9" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span><div><b>${n}</b> <i>${l}</i><p>${r}</p><small>Origine visée : ${o}. Dans : ${w}.</small></div></div>`).join('');
+const cert=(a,k)=>a.map(([t,d,s,i])=>`<div class="cert"><span class="seal${k?' k':''}">${icon(i)}</span><div><b>${t}</b><p>${d}</p><span class="st${k?' k':''}">${s}</span></div></div>`).join('');
+$('#certReq').innerHTML=cert(CR,0);$('#certGoal').innerHTML=cert(CG,1);
+$('#rec').innerHTML=REC.map(([t,c,ing,m])=>`<div class="r">${glass(c)}<div><h3>${t}</h3><ul>${ing.map(i=>`<li>${i}</li>`).join('')}</ul><p>${m}</p></div></div>`).join('');
+$('#shop').innerHTML=F.map(f=>`<article class="prod"><div class="pic" style="--c:${f.color}">${bottle(f)}</div><div class="body"><h3>Euphoria ${f.name}</h3><p class="taste" style="margin:0">${f.short}</p><fieldset class="seg"><legend class="sr">Format</legend>${FM.map((m,i)=>`<label><input type="radio" name="fm-${f.id}" value="${m.k}"${i?'':' checked'}><span>${m.l}</span></label>`).join('')}</fieldset><div class="buy"><span class="price" id="pr-${f.id}">${eur(FM[0].p)}<small>${perL(FM[0].p,1)}</small></span><button class="btn btn-b" data-add="${f.id}">Ajouter au panier</button></div></div></article>`).join('')
+ +`<article class="prod"><div class="pic" style="--c:#1f3f8a">${F.map(f=>bottle(f,'style="height:80%"')).join('')}</div><div class="body"><h3>${BOX.t}</h3><p class="taste" style="margin:0">${BOX.d}. La meilleure façon de trouver votre saveur.</p><div class="buy"><span class="price">${eur(BOX.p)}<small>${perL(BOX.p,6)}</small></span><button class="btn btn-b" data-add="coffret">Ajouter au panier</button></div></div></article>`;
+
+/* navigation par pages */
+const views=[...document.querySelectorAll('.view')];
+let first=true;
+const route=()=>{
+  let v=location.hash.slice(1);
+  if(!views.some(x=>x.dataset.v===v))v='accueil';
+  for(const x of views)x.hidden=x.dataset.v!==v;
+  for(const a of document.querySelectorAll('.links a')){if(a.getAttribute('href')==='#'+v)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')}
+  const cur=views.find(x=>x.dataset.v===v);
+  document.title=cur.dataset.t;
+  window.scrollTo(0,0);
+  if(!first){const h=cur.querySelector('h1');if(h)h.focus({preventScroll:true})}
+  first=false;
+};
+window.addEventListener('hashchange',route);
+route();
+
+const tg=$('#toggleAll');
+tg.addEventListener('click',()=>{const open=tg.getAttribute('aria-pressed')!=='true';document.querySelectorAll('#flavs details').forEach(d=>d.open=open);tg.setAttribute('aria-pressed',String(open));tg.textContent=open?'Masquer tous les ingrédients':'Afficher tous les ingrédients'});
+
+/* panier */
 const info=k=>{
   if(k==='coffret')return {...BOX,n:6};
   const [id,fk]=String(k).split('|');const f=F.find(x=>x.id===id),m=FM.find(x=>x.k===fk);
@@ -403,11 +554,10 @@ const saved=store.get();
 let cart={},promo=!!saved.promo;
 for(const [k,q] of Object.entries(saved.cart||{})){const n=parseInt(q,10);if(n>0&&n<100&&info(k))cart[k]=n}
 const save=()=>store.set({cart,promo});
-
 const totals=()=>{
   let sub=0,items=0,btl=0;
   for(const [k,q] of Object.entries(cart)){const i=info(k);sub+=i.p*q;items+=q;btl+=i.n*q}
-  const disc=promo?Math.round(sub*10)/100:0,after=sub-disc,ship=items&&after<40?5.9:0;
+  const disc=promo?Math.round(sub*10)/100:0,after=sub-disc,ship=items&&after<FREE?SHIP:0;
   return {sub,disc,after,ship,tot:after+ship,items,btl};
 };
 const render=()=>{
@@ -422,23 +572,21 @@ const render=()=>{
   $('#rDisc').hidden=!t.disc;$('#tDisc').textContent='−'+eur(t.disc);
   $('#tShip').textContent=t.ship?eur(t.ship):'Offerte';
   $('#tTot').textContent=eur(t.tot);$('#fTot').textContent=eur(t.tot);
-  $('#shipMsg').textContent=t.after>=40?'Livraison offerte.':`Plus que ${eur(40-t.after)} pour la livraison offerte.`;
-  $('#meter').style.width=Math.min(100,t.after/40*100)+'%';
+  $('#shipMsg').textContent=t.after>=FREE?'Livraison offerte.':`Plus que ${eur(FREE-t.after)} pour la livraison offerte.`;
+  $('#meter').style.width=Math.min(100,t.after/FREE*100)+'%';
   if(promo)$('#pmsg').textContent='Code BIENVENUE appliqué : −10 %.';
 };
-
 let tt;
 const toast=m=>{const el=$('#toast');el.textContent=m;el.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('on'),2200)};
 const view=v=>{for(const x of ['cart','form','done'])$('#v-'+x).hidden=x!==v};
 const dr=$('#cart'),sh=$('#shade');
 const openCart=()=>{view('cart');dr.classList.add('on');sh.classList.add('on');dr.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';setTimeout(()=>$('#close').focus(),60)};
 const closeCart=()=>{dr.classList.remove('on');sh.classList.remove('on');dr.setAttribute('aria-hidden','true');document.body.style.overflow='';$('#cartBtn').focus()};
-
 document.addEventListener('click',e=>{
   const a=e.target.closest('[data-add]');
   if(a){
     const id=a.dataset.add;let k='coffret';
-    if(id!=='coffret'){const r=document.querySelector(`input[name="fm-${id}"]:checked`);k=id+'|'+(r?r.value:'1')}
+    if(id!=='coffret'){const r=document.querySelector(`input[name="fm-${id}"]:checked`);k=id+'|'+(a.dataset.fmt||(r?r.value:'1'))}
     cart[k]=Math.min(99,(cart[k]||0)+1);save();render();
     const i=info(k);toast(`Ajouté : ${i.t}, ${i.d.toLowerCase()}`);
     return;
